@@ -1,3 +1,40 @@
 <app-header></app-header>
 
-<p>book-rom works!</p>
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+
+    <h5 *ngIf="success">Sala marcada com sucesso!</h5>
+
+    <label>
+        Nome:
+        <input type="text" formControlName="name">
+    </label>
+
+    <label>
+        Descrição:
+        <textarea formControlName="description"></textarea>
+    </label>
+
+    <label>
+        Escolha uma sala:
+        <select class="custom-select" formControlName="room">
+            <option>New York</option>
+        </select>
+        <!-- error block -->
+        <div class="invalid-feedback" *ngIf="submitted && room.errors?.required">
+            <sup>*</sup>Please enter your city name
+        </div>
+    </label>
+
+
+    <input type="submit" value="Submeter" class="cta">
+</form>
+
+<div *ngIf="submitted" class="results">
+    <strong>Name:</strong>
+    <span>{{ messageForm.controls.name.value }}</span>
+
+    <strong>Message:</strong>
+    <span>{{ messageForm.controls.message.value }}</span>
+
+
+</div>
